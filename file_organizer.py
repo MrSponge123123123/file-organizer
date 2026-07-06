@@ -104,6 +104,7 @@ class FileOrganizer:
                     self.log(file, target_path)
 
 
+
         # organize after size
         if organization_type == Options.OrganizationTypes.Size:
             # check if value is valid
@@ -141,6 +142,29 @@ class FileOrganizer:
                 file.move(target_path)
                 self.log(file, target_path)
 
+
+
+        # organize after extension
+        if organization_type == Options.OrganizationTypes.Extension:
+            # check if value is valid
+            if not value is None:
+                raise TypeError(f"Expected: {None}, got: {type(value)}")
+
+            # move current files to the correct folders
+            for file in current_files:
+                # get extension of the file
+                extension: str = file.suffix
+
+                # create the correct folder if it doesn't exist
+                folder: Path = Path(path, f"{extension[1:]}")
+                if not folder.exists():
+                    folder.mkdir()
+                    self.log(None, folder)
+
+                # move file to folder
+                target_path: Path = Path(folder, file.resolve().parts[-1])
+                file.move(target_path)
+                self.log(file, target_path)
 
 
     def log(self, path_before: Path | None, path_after: Path | None, silent: bool = False) -> None:

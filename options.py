@@ -5,10 +5,7 @@ class Options(Enum):
     class OrganizationTypes(Enum):
         cDate = "cDate"
         mDate = "mDate"
-        Size = "Size"
-        Contains = "Contains"
-        Prefix = "prefix"
-        Suffix = "suffix"
+        Size = "size"
         Extension = "extension"
 
     class TimeUnits(Enum):
